@@ -22,10 +22,9 @@
 
 
 const mongoose = require('mongoose');
-mongoose.connect("mongodb+srv://aashishbirhade:Ab%409765229769@cluster0.1usbk5t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+
+// Connect without deprecated options
+mongoose.connect("mongodb+srv://aashishbirhade:Ab%409765229769@cluster0.1usbk5t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
 
 const gameResultSchema = new mongoose.Schema({
   gameName: { type: String, required: true },
@@ -41,7 +40,7 @@ const userSchema = new mongoose.Schema({
   email: { 
     type: String, 
     required: true, 
-    unique: true,
+    unique: true, // this already creates a unique index
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
   },
   phoneNo: { 
@@ -76,8 +75,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// Index for better query performance
-userSchema.index({ email: 1 });
+// Keep only one index (we're keeping createdAt for sorting)
 userSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model("User", userSchema);
