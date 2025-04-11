@@ -24,7 +24,7 @@
 const mongoose = require('mongoose');
 
 // Connect without deprecated options
-mongoose.connect("mongodb+srv://aashishbirhade:Ab%409765229769@cluster0.1usbk5t.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+mongoose.connect("mongodb://127.0.0.1:27017/vision");
 
 const gameResultSchema = new mongoose.Schema({
   gameName: { type: String, required: true },
